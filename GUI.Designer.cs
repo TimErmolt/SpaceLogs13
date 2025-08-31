@@ -1,4 +1,7 @@
-﻿namespace SpaceLogs13
+﻿
+
+
+namespace SpaceLogs13
 {
     partial class GUI
     {
@@ -35,6 +38,7 @@
             // 
             LogDisplay.AccessibleDescription = "Displays the contents of the currently loaded file with conditions as set by the user.";
             LogDisplay.AccessibleName = "Log Display";
+            LogDisplay.AllowDrop = true;
             LogDisplay.BackColor = SystemColors.ControlLightLight;
             LogDisplay.BorderStyle = BorderStyle.FixedSingle;
             LogDisplay.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
@@ -48,9 +52,13 @@
             LogDisplay.TabIndex = 0;
             LogDisplay.Text = "\r\n\r\n\r\nNO LOG FILE LOADED\r\n";
             LogDisplay.TextAlign = HorizontalAlignment.Center;
+            LogDisplay.DragDrop += GUI_DragDrop;
+            LogDisplay.DragEnter += GUI_DragEnter;
+            LogDisplay.DragLeave += GUI_DragLeave;
             // 
             // GUI
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 461);
@@ -58,6 +66,9 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "GUI";
             Text = "SpaceLogs13";
+            DragDrop += GUI_DragDrop;
+            DragEnter += GUI_DragEnter;
+            DragLeave += GUI_DragLeave;
             ResumeLayout(false);
             PerformLayout();
         }
