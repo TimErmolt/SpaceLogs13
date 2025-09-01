@@ -31,6 +31,7 @@ namespace SpaceLogs13
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             LogDisplay = new TextBox();
             FilePathBox = new TextBox();
             BrowseButton = new Button();
@@ -88,6 +89,7 @@ namespace SpaceLogs13
             Controls.Add(FilePathBox);
             Controls.Add(LogDisplay);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "GUI";
             Text = "SpaceLogs13";
             DragDrop += GUI_DragDrop;
