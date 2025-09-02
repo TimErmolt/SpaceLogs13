@@ -7,7 +7,7 @@ namespace SpaceLogs13
     {
         private const string filepath_prefix = "Current file: ";
         private const string filepath_default = "none";
-        private const string display_default = "\r\n\r\n\r\nNO LOG FILE LOADED";
+        private const string display_default = "NO LOG FILE LOADED";
 
         public LogFile? current_file;
 
@@ -54,9 +54,22 @@ namespace SpaceLogs13
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
+            SearchByKeyword(KeywordBox.Text, CaseSensitiveCheck.Checked);
+        }
 
+        private void DeselectButton_Click(object sender, EventArgs e)
+        {
+            UnacquireFile();
+        }
+
+        private void Enter(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                SearchByKeyword(KeywordBox.Text, CaseSensitiveCheck.Checked);
+            }
         }
     }
 }

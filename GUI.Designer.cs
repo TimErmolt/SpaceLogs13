@@ -36,7 +36,10 @@ namespace SpaceLogs13
             FilePathBox = new TextBox();
             BrowseButton = new Button();
             KeywordBox = new TextBox();
-            button1 = new Button();
+            SearchButton = new Button();
+            CaseSensitiveCheck = new CheckBox();
+            DeselectButton = new Button();
+            ReportBox = new TextBox();
             SuspendLayout();
             // 
             // LogDisplay
@@ -47,15 +50,15 @@ namespace SpaceLogs13
             LogDisplay.BackColor = SystemColors.ControlLightLight;
             LogDisplay.BorderStyle = BorderStyle.FixedSingle;
             LogDisplay.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            LogDisplay.Location = new Point(12, 286);
+            LogDisplay.Location = new Point(12, 209);
             LogDisplay.MaxLength = 16777216;
             LogDisplay.Multiline = true;
             LogDisplay.Name = "LogDisplay";
             LogDisplay.ReadOnly = true;
             LogDisplay.ScrollBars = ScrollBars.Both;
-            LogDisplay.Size = new Size(780, 163);
+            LogDisplay.Size = new Size(780, 240);
             LogDisplay.TabIndex = 0;
-            LogDisplay.Text = "\r\n\r\n\r\nNO LOG FILE LOADED\r\n";
+            LogDisplay.Text = "\r\n\r\n\r\n\r\n\r\nNO LOG FILE LOADED";
             LogDisplay.TextAlign = HorizontalAlignment.Center;
             LogDisplay.DragDrop += GUI_DragDrop;
             LogDisplay.DragEnter += GUI_DragEnter;
@@ -88,16 +91,50 @@ namespace SpaceLogs13
             KeywordBox.Name = "KeywordBox";
             KeywordBox.Size = new Size(146, 23);
             KeywordBox.TabIndex = 3;
+            KeywordBox.KeyPress += Enter;
             // 
-            // button1
+            // SearchButton
             // 
-            button1.Location = new Point(164, 94);
-            button1.Name = "button1";
-            button1.Size = new Size(68, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Search...";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            SearchButton.Enabled = false;
+            SearchButton.Location = new Point(164, 94);
+            SearchButton.Name = "SearchButton";
+            SearchButton.Size = new Size(68, 23);
+            SearchButton.TabIndex = 4;
+            SearchButton.Text = "Search...";
+            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Click += SearchButton_Click;
+            // 
+            // CaseSensitiveCheck
+            // 
+            CaseSensitiveCheck.AutoSize = true;
+            CaseSensitiveCheck.Location = new Point(12, 123);
+            CaseSensitiveCheck.Name = "CaseSensitiveCheck";
+            CaseSensitiveCheck.Size = new Size(99, 19);
+            CaseSensitiveCheck.TabIndex = 5;
+            CaseSensitiveCheck.Text = "Case sensitive";
+            CaseSensitiveCheck.UseVisualStyleBackColor = true;
+            // 
+            // DeselectButton
+            // 
+            DeselectButton.Enabled = false;
+            DeselectButton.Location = new Point(12, 34);
+            DeselectButton.Name = "DeselectButton";
+            DeselectButton.Size = new Size(99, 23);
+            DeselectButton.TabIndex = 6;
+            DeselectButton.Text = "Deselect file";
+            DeselectButton.UseVisualStyleBackColor = true;
+            DeselectButton.Click += DeselectButton_Click;
+            // 
+            // ReportBox
+            // 
+            ReportBox.BackColor = SystemColors.Control;
+            ReportBox.BorderStyle = BorderStyle.None;
+            ReportBox.Location = new Point(12, 187);
+            ReportBox.Name = "ReportBox";
+            ReportBox.ReadOnly = true;
+            ReportBox.Size = new Size(220, 16);
+            ReportBox.TabIndex = 7;
+            ReportBox.Visible = false;
             // 
             // GUI
             // 
@@ -105,7 +142,10 @@ namespace SpaceLogs13
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 461);
-            Controls.Add(button1);
+            Controls.Add(ReportBox);
+            Controls.Add(DeselectButton);
+            Controls.Add(CaseSensitiveCheck);
+            Controls.Add(SearchButton);
             Controls.Add(KeywordBox);
             Controls.Add(BrowseButton);
             Controls.Add(FilePathBox);
@@ -127,6 +167,9 @@ namespace SpaceLogs13
         private TextBox FilePathBox;
         private Button BrowseButton;
         private TextBox KeywordBox;
-        private Button button1;
+        private Button SearchButton;
+        private CheckBox CaseSensitiveCheck;
+        private Button DeselectButton;
+        private TextBox ReportBox;
     }
 }

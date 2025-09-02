@@ -25,7 +25,20 @@ namespace SpaceLogs13
         private void InfoToMainDisplay(string text)
         {
             LogDisplay.TextAlign = HorizontalAlignment.Center;
-            LogDisplay.Text = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine + text;
+            LogDisplay.Text = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine
+                              + System.Environment.NewLine + System.Environment.NewLine + text; // I'm bad at strings ~02.09.2025
+        }
+
+        private void ShowReport(string text)
+        {
+            ReportBox.Visible = true;
+            ReportBox.Text = text;
+        }
+
+        private void ClearReport()
+        {
+            ReportBox.Visible = false;
+            ReportBox.Text = "";
         }
 
         private bool AcquireFile(string path)
@@ -36,14 +49,41 @@ namespace SpaceLogs13
             }
             catch (FileNotFoundException e)
             {
-                MessageBox.Show("Failed to acquire the selected file as it does not exist!" + System.Environment.NewLine + e);
+                MessageBox.Show("Failed to acquire the selected file!" + System.Environment.NewLine + System.Environment.NewLine + e);
                 return false;
             }
             string filename = current_file.Filename();
             FilePathBox.Text = filepath_prefix + filename;
             AdjustFilePathDisplay();
+            ClearReport();
             InfoToMainDisplay($"CURRENT FILE: {filename}");
+
+            DeselectButton.Enabled = true;
+            SearchButton.Enabled = true;
             return true;
+        }
+
+        private void UnacquireFile()
+        {
+            if(current_file == null)
+            {
+                return;
+            }
+
+            current_file = null;
+            DeselectButton.Enabled= false;
+            SearchButton.Enabled = false;
+            FilePathBox.Text = filepath_prefix + filepath_default;
+            AdjustFilePathDisplay();
+            ClearReport();
+            InfoToMainDisplay(display_default);
+        }
+
+        private void SearchByKeyword(string keyword, bool match_case = false)
+        {
+            string[] found_lines = current_file.Search(keyword, match_case);
+            LogsToMainDisplay(string.Join(System.Environment.NewLine, found_lines));
+            ShowReport($"{current_file.Lines().Length} total lines; {found_lines.Length} matched");
         }
     }
 }
