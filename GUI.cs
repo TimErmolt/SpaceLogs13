@@ -7,9 +7,10 @@ namespace SpaceLogs13
     {
         private const string filepath_prefix = "Current file: ";
         private const string filepath_default = "none";
+        private const string display_default = "\r\n\r\n\r\nNO LOG FILE LOADED";
 
-        public string current_file_path = "";
-        public string current_file_name = "";
+        public LogFile? current_file;
+
         public GUI()
         {
             InitializeComponent();
@@ -20,16 +21,20 @@ namespace SpaceLogs13
         }
         private void GUI_DragDrop(object sender, DragEventArgs e)
         {
-            LogDisplay.Text = "THE DRAG HAS BEEN DROPPED.";
+            string[] data = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (data == null || !AcquireFile(data[0]))
+            {
+                InfoToMainDisplay("Could not select that file!");
+            }
         }
         private void GUI_DragEnter(object sender, DragEventArgs e)
         {
-            LogDisplay.Text = "THE DRAG HAS ENTERED.";
+            InfoToMainDisplay("Drop the log file to select it");
             e.Effect = DragDropEffects.Copy; // Otherwise the drag&drop just doesn't work. Thank you Microsoft. ~01.09.2025
         }
         private void GUI_DragLeave(object sender, EventArgs e)
         {
-            LogDisplay.Text = "THE DRAG HAS LEFT.";
+            InfoToMainDisplay(display_default);
         }
 
         private void BrowseButton_Click(object sender, EventArgs e)
@@ -45,9 +50,13 @@ namespace SpaceLogs13
 
             if (browser.ShowDialog() == DialogResult.OK)
             {
-                string file_path = browser.FileName;
-                AcquireFile(file_path);
+                AcquireFile(browser.FileName);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

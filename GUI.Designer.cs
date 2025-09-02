@@ -35,6 +35,8 @@ namespace SpaceLogs13
             LogDisplay = new TextBox();
             FilePathBox = new TextBox();
             BrowseButton = new Button();
+            KeywordBox = new TextBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // LogDisplay
@@ -79,12 +81,32 @@ namespace SpaceLogs13
             BrowseButton.UseVisualStyleBackColor = true;
             BrowseButton.Click += BrowseButton_Click;
             // 
+            // KeywordBox
+            // 
+            KeywordBox.Location = new Point(12, 94);
+            KeywordBox.MaxLength = 1024;
+            KeywordBox.Name = "KeywordBox";
+            KeywordBox.Size = new Size(146, 23);
+            KeywordBox.TabIndex = 3;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(164, 94);
+            button1.Name = "button1";
+            button1.Size = new Size(68, 23);
+            button1.TabIndex = 4;
+            button1.Text = "Search...";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // GUI
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 461);
+            Controls.Add(button1);
+            Controls.Add(KeywordBox);
             Controls.Add(BrowseButton);
             Controls.Add(FilePathBox);
             Controls.Add(LogDisplay);
@@ -104,5 +126,7 @@ namespace SpaceLogs13
         private TextBox LogDisplay;
         private TextBox FilePathBox;
         private Button BrowseButton;
+        private TextBox KeywordBox;
+        private Button button1;
     }
 }

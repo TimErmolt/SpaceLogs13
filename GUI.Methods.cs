@@ -28,30 +28,22 @@ namespace SpaceLogs13
             LogDisplay.Text = System.Environment.NewLine + System.Environment.NewLine + System.Environment.NewLine + text;
         }
 
-        private void AcquireFile(string path)
+        private bool AcquireFile(string path)
         {
-            current_file_path = path;
-            current_file_name = Path.GetFileName(current_file_path);
-
-            if (!File.Exists(current_file_path))
-            {
-                MessageBox.Show("Failed to acquire the selected file as it does not exist!");
-                return;
-            }
-            /*
             try
             {
-                LogsToMainDisplay(File.ReadAllText(current_file_path));
+                current_file = new LogFile(path);
             }
-            catch(Exception e)
+            catch (FileNotFoundException e)
             {
-                MessageBox.Show("Failed to acquire the selected file!\n\n" + e);
-                return;
+                MessageBox.Show("Failed to acquire the selected file as it does not exist!" + System.Environment.NewLine + e);
+                return false;
             }
-            */
-            FilePathBox.Text = filepath_prefix + current_file_name;
+            string filename = current_file.Filename();
+            FilePathBox.Text = filepath_prefix + filename;
             AdjustFilePathDisplay();
-            InfoToMainDisplay($"CURRENT FILE: {current_file_name}");
+            InfoToMainDisplay($"CURRENT FILE: {filename}");
+            return true;
         }
     }
 }
