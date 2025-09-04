@@ -9,6 +9,7 @@ public partial class GUI : Form
     private const string display_default = "NO LOG FILE LOADED";
 
     public LogFile? current_file;
+    public RoundLog? selected_round;
 
     public GUI()
     {

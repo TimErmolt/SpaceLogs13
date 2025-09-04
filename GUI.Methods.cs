@@ -91,4 +91,22 @@ partial class GUI
         LogsToMainDisplay(string.Join(System.Environment.NewLine, found_lines));
         ShowReport($"{current_file.Lines().Length} total lines; {found_lines.Length} matched");
     }
+
+    private bool SelectRound(string round_id)
+    {
+        if (current_file == null)
+        {
+            return false;
+        }
+        try
+        {
+            selected_round = new RoundLog(current_file, round_id);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.ToString());
+            return false;
+        }
+        return true;
+    }
 }

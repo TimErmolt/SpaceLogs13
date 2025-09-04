@@ -93,6 +93,16 @@ public class LogFile
             found_lines[i] = Regex.Replace(found_lines[i], "[]", "");
         }
 
-            return [.. found_lines];
+        return [.. found_lines];
+    }
+
+    public string[] GetRounds()
+    {
+        string[] round_ids = Search("Starting up round", true);
+        for (int i = 0; i < round_ids.Length; i++)
+        {
+            round_ids[i] = round_ids[i].Substring(20, 8);
+        }
+        return round_ids;
     }
 }
