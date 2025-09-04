@@ -38,9 +38,9 @@ public class LogFile
         for (int i = 0; i < lines.Length; i++)
         {
             lines[i] = Regex.Replace(lines[i], "[^]+", "IP-HWID");
-            lines[i] = Regex.Replace(lines[i], "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}-\\d{1,10}", "IP-HWID");
-            lines[i] = Regex.Replace(lines[i], "<\\s*a\\s+HREF\\s*=\\s*(?:\"[^\"]*\"|'[^']*'|[^'\">\\s]+)*\\s*>.*?<\\s*/\\s*a\\s*>", "");
-            lines[i] = Regex.Replace(lines[i], "<br>|<b>|</b>|<i>|</i>|<span class='[^']*'>|</span>|<div class='[^']*'>|</div>|<font color='[^']*'>|</font>|<font size = [^']*>|<img class='[^']*' src=\"[^']*\">", "");
+            lines[i] = StaticRegexes.IP_CID().Replace(lines[i], "IP-HWID");
+            lines[i] = StaticRegexes.HREF().Replace(lines[i], "");
+            lines[i] = StaticRegexes.HTML().Replace(lines[i], "");
             lines[i] = lines[i].Replace("&#34;", "\"");
             lines[i] = lines[i].Replace("&#39;", "'");
             lines[i] = lines[i].Replace("() ()", "");
