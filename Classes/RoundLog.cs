@@ -73,8 +73,8 @@ public class RoundLog
     {
         List<string> antags = [];
         string[] antag_names = ["Traitor", "Changeling", "Cultist", "Vampire", "Thrall", "Xenomorph", "Syndicate", "Mercenary", "Renegade",
-                                "Loyalist", "Revolutionary", "NanoTrasen Actor", "Wizard", "Ninja", "Servant", "Deity", "Rabid Monkey", "Emergency Responder",
-                                "Meme", "Borer", "Death Commando", "Raider"];
+                                "Loyalist", "Revolutionary", "NanoTrasen Actor", "Space Wizard", "Ninja", "Servant", "Deity", "Rabid Monkey", "Emergency Responder",
+                                "Meme", "Borer", "Death Commando", "Raider", "Zombie"];
         int start_index = -1;
 
         for (int i = 0; i < lines.Length; i++)
@@ -106,6 +106,13 @@ public class RoundLog
             }
         }
 
+        if (antags.Count == 0)
+        {
+            return ["There were no antagonists."];
+        }
+
+        antags.Insert(0, "The antagonists were:");
+
         return [.. antags];
     }
 
@@ -113,7 +120,18 @@ public class RoundLog
     {
         List<string> stats = [];
 
-        stats.Add(CountLines("Explosion in").ToString());
+        int players_at_start = 0;
+        for(int i = 28;  i < int.Min(lines.Length, 100); i++)
+        {
+            if (lines[i].Contains("ACCESS: Login:"))
+            {
+                players_at_start++;
+            }
+        }
+
+        stats.Add(players_at_start.ToString());
+
+        stats.Add(CountLines("Explosion with").ToString());
         // stats.Add(CountLines("has died in").ToString()); // Uncomment this when OnyxBay merges death notices ~04.09.2025
 
         stats.AddRange(GetAntags());

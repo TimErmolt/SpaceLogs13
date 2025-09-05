@@ -101,7 +101,7 @@ public class LogFile
         string[] round_ids = Search("Starting up round", true);
         for (int i = 0; i < round_ids.Length; i++)
         {
-            round_ids[i] = round_ids[i].Substring(20, 8);
+            round_ids[i] = round_ids[i].Substring(21, 8);
         }
         return round_ids;
     }

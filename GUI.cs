@@ -34,7 +34,7 @@ public partial class GUI : Form
     }
     private void GUI_DragLeave(object sender, EventArgs e)
     {
-        InfoToMainDisplay(display_default);
+        InfoToMainDisplay(current_file == null ? display_default : $"CURRENT FILE: {current_file.Filename()}");
     }
 
     private void BrowseButton_Click(object sender, EventArgs e)
@@ -56,6 +56,11 @@ public partial class GUI : Form
 
     private void SearchButton_Click(object sender, EventArgs e)
     {
+        if(string.IsNullOrEmpty(KeywordBox.Text))
+        {
+            InfoToMainDisplay(display_default);
+            return;
+        }
         SearchByKeyword(KeywordBox.Text, CaseSensitiveCheck.Checked);
     }
 
@@ -66,9 +71,20 @@ public partial class GUI : Form
 
     private void Enter(object sender, KeyPressEventArgs e)
     {
-        if(e.KeyChar == (char)Keys.Enter)
+        if (e.KeyChar == (char)Keys.Enter)
         {
             SearchByKeyword(KeywordBox.Text, CaseSensitiveCheck.Checked);
         }
+    }
+
+    private void RoundSelector_SelectionChangeCommitted(object sender, EventArgs e)
+    {
+        string? selection = GetSelectedRound();
+        if (selection == null)
+        {
+            DeselectRound();
+            return;
+        }
+        SelectRound(selection);
     }
 }

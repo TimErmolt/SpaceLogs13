@@ -3,6 +3,7 @@
 */
 
 using SpaceLogs13.Classes;
+using static System.Windows.Forms.LinkLabel;
 
 namespace SpaceLogs13;
 
@@ -62,6 +63,10 @@ partial class GUI
 
         DeselectButton.Enabled = true;
         SearchButton.Enabled = true;
+        RoundSelector.Enabled = true;
+        RoundSelector.Items.Clear();
+        RoundSelector.Items.Add("All rounds");
+        RoundSelector.Items.AddRange(current_file.GetRounds());
         return true;
     }
 
@@ -73,8 +78,11 @@ partial class GUI
         }
 
         current_file = null;
-        DeselectButton.Enabled= false;
+        DeselectButton.Enabled = false;
         SearchButton.Enabled = false;
+        RoundSelector.SelectedItem = null;
+        RoundSelector.Items.Clear();
+        RoundSelector.Enabled = false;
         FilePathBox.Text = filepath_prefix + filepath_default;
         AdjustFilePathDisplay();
         ClearReport();
@@ -87,7 +95,16 @@ partial class GUI
         {
             return;
         }
-        string[] found_lines = current_file.Search(keyword, match_case);
+        string[] found_lines;
+        string round = GetSelectedRound();
+        if (round == "All rounds" || round == null || selected_round == null)
+        {
+            found_lines = current_file.Search(keyword, match_case);
+        }
+        else
+        {
+            found_lines = selected_round.Search(keyword, match_case);
+        }
         LogsToMainDisplay(string.Join(System.Environment.NewLine, found_lines));
         ShowReport($"{current_file.Lines().Length} total lines; {found_lines.Length} matched");
     }
@@ -98,6 +115,11 @@ partial class GUI
         {
             return false;
         }
+        if(round_id == "All rounds")
+        {
+            DeselectRound();
+            return true;
+        }
         try
         {
             selected_round = new RoundLog(current_file, round_id);
@@ -107,6 +129,49 @@ partial class GUI
             MessageBox.Show(e.ToString());
             return false;
         }
+        DisplayStats(selected_round.GetStats(), $"Round {round_id}:{System.Environment.NewLine}{System.Environment.NewLine}");
         return true;
+    }
+
+    private void DeselectRound()
+    {
+        selected_round = null;
+        ClearStats();
+    }
+
+    private string GetSelectedRound()
+    {
+        return RoundSelector.SelectedItem.ToString();
+    }
+
+    private void DisplayStats(string[] raw_stats, string header)
+    {
+        List<string> stats = [];
+        for (int i = 0; i < raw_stats.Length; i++)
+        {
+            switch(i)
+            {
+                case 0:
+                    stats.Add($"There were {raw_stats[i]} players at world boot;");
+                    break;
+                /*
+                case 1: // Uncomment this when OnyxBay merges death notices ~05.09.2025
+                    stats.Add($"{raw_stats[i]} players have died;");
+                    break;
+                */
+                case 1:
+                    stats.Add($"There were {raw_stats[i]} explosions;");
+                    break;
+                default:
+                    stats.Add(raw_stats[i]);
+                    break;
+            }
+        }
+        StatDisplay.Text = header + string.Join(System.Environment.NewLine, stats);
+    }
+
+    private void ClearStats()
+    {
+        StatDisplay.Clear();
     }
 }

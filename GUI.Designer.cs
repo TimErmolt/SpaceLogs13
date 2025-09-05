@@ -40,6 +40,8 @@ namespace SpaceLogs13
             CaseSensitiveCheck = new CheckBox();
             DeselectButton = new Button();
             ReportBox = new TextBox();
+            StatDisplay = new TextBox();
+            RoundSelector = new ComboBox();
             SuspendLayout();
             // 
             // LogDisplay
@@ -71,12 +73,12 @@ namespace SpaceLogs13
             FilePathBox.Location = new Point(12, 12);
             FilePathBox.Name = "FilePathBox";
             FilePathBox.ReadOnly = true;
-            FilePathBox.Size = new Size(220, 16);
+            FilePathBox.Size = new Size(146, 16);
             FilePathBox.TabIndex = 1;
             // 
             // BrowseButton
             // 
-            BrowseButton.Location = new Point(238, 8);
+            BrowseButton.Location = new Point(164, 8);
             BrowseButton.Name = "BrowseButton";
             BrowseButton.Size = new Size(66, 23);
             BrowseButton.TabIndex = 2;
@@ -109,9 +111,9 @@ namespace SpaceLogs13
             CaseSensitiveCheck.AutoSize = true;
             CaseSensitiveCheck.Location = new Point(12, 123);
             CaseSensitiveCheck.Name = "CaseSensitiveCheck";
-            CaseSensitiveCheck.Size = new Size(99, 19);
+            CaseSensitiveCheck.Size = new Size(86, 19);
             CaseSensitiveCheck.TabIndex = 5;
-            CaseSensitiveCheck.Text = "Case sensitive";
+            CaseSensitiveCheck.Text = "Match case";
             CaseSensitiveCheck.UseVisualStyleBackColor = true;
             // 
             // DeselectButton
@@ -136,12 +138,43 @@ namespace SpaceLogs13
             ReportBox.TabIndex = 7;
             ReportBox.Visible = false;
             // 
+            // StatDisplay
+            // 
+            StatDisplay.AccessibleDescription = "Displays the contents of the currently loaded file with conditions as set by the user.";
+            StatDisplay.AccessibleName = "Log Display";
+            StatDisplay.AllowDrop = true;
+            StatDisplay.BackColor = SystemColors.ControlLightLight;
+            StatDisplay.BorderStyle = BorderStyle.FixedSingle;
+            StatDisplay.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            StatDisplay.Location = new Point(471, 7);
+            StatDisplay.MaxLength = 16777216;
+            StatDisplay.Multiline = true;
+            StatDisplay.Name = "StatDisplay";
+            StatDisplay.ReadOnly = true;
+            StatDisplay.ScrollBars = ScrollBars.Vertical;
+            StatDisplay.Size = new Size(321, 196);
+            StatDisplay.TabIndex = 8;
+            // 
+            // RoundSelector
+            // 
+            RoundSelector.Enabled = false;
+            RoundSelector.Font = new Font("Arial", 12F, FontStyle.Bold);
+            RoundSelector.FormattingEnabled = true;
+            RoundSelector.Location = new Point(363, 7);
+            RoundSelector.Name = "RoundSelector";
+            RoundSelector.Size = new Size(102, 27);
+            RoundSelector.TabIndex = 9;
+            RoundSelector.Text = "ROUND";
+            RoundSelector.SelectionChangeCommitted += RoundSelector_SelectionChangeCommitted;
+            // 
             // GUI
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 461);
+            Controls.Add(RoundSelector);
+            Controls.Add(StatDisplay);
             Controls.Add(ReportBox);
             Controls.Add(DeselectButton);
             Controls.Add(CaseSensitiveCheck);
@@ -171,5 +204,7 @@ namespace SpaceLogs13
         private CheckBox CaseSensitiveCheck;
         private Button DeselectButton;
         private TextBox ReportBox;
+        private TextBox StatDisplay;
+        private ComboBox RoundSelector;
     }
 }
