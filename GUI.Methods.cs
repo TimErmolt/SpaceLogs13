@@ -3,6 +3,7 @@
 */
 
 using SpaceLogs13.Classes;
+using System.Text.RegularExpressions;
 using static System.Windows.Forms.LinkLabel;
 
 namespace SpaceLogs13;
@@ -64,6 +65,8 @@ partial class GUI
         DeselectButton.Enabled = true;
         SearchButton.Enabled = true;
         RoundSelector.Enabled = true;
+        ClearRoundSelection();
+        ClearStats();
         RoundSelector.Items.Clear();
         RoundSelector.Items.Add("All rounds");
         RoundSelector.Items.AddRange(current_file.GetRounds());
@@ -80,9 +83,10 @@ partial class GUI
         current_file = null;
         DeselectButton.Enabled = false;
         SearchButton.Enabled = false;
-        RoundSelector.SelectedItem = null;
+        ClearRoundSelection();
         RoundSelector.Items.Clear();
         RoundSelector.Enabled = false;
+        ClearStats();
         FilePathBox.Text = filepath_prefix + filepath_default;
         AdjustFilePathDisplay();
         ClearReport();
@@ -139,10 +143,17 @@ partial class GUI
         ClearStats();
     }
 
+    private void ClearRoundSelection()
+    {
+        RoundSelector.SelectedItem = null;
+        RoundSelector.Text = "ROUND";
+    }
+
     private string GetSelectedRound()
     {
         return RoundSelector.SelectedItem.ToString();
     }
+
 
     private void DisplayStats(string[] raw_stats, string header)
     {

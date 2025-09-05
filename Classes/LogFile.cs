@@ -21,7 +21,7 @@ public class LogFile
         path = _path;
         filename = Path.GetFileName(path);
 
-        lines = File.ReadAllLines(path);
+        lines = StaticRegexes.SanitizeLogs(File.ReadAllLines(path));
 
         /* 02.09.2025
          * Sanitize read lines:
@@ -34,7 +34,7 @@ public class LogFile
          * 5. Remove leftover HREF brackets.
          
          Thank you Poromoks for the guide to manual log sanitization, which has been used to automate it here, including the regular expressions.
-        */
+        
         for (int i = 0; i < lines.Length; i++)
         {
             lines[i] = Regex.Replace(lines[i], "[^]+", "IP-HWID");
@@ -45,6 +45,7 @@ public class LogFile
             lines[i] = lines[i].Replace("&#39;", "'");
             lines[i] = lines[i].Replace("() ()", "");
         }
+        */
     }
 
     public bool Exists()
