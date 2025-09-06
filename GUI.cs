@@ -1,4 +1,5 @@
-using SpaceLogs13.Classes;
+using SpaceLogs13.Classes.Logs;
+using SpaceLogs13.Classes.Stats;
 
 namespace SpaceLogs13;
 
@@ -10,6 +11,8 @@ public partial class GUI : Form
 
     public LogFile? current_file;
     public RoundLog? selected_round;
+    public RoundStats? round_stats;
+    public CkeyStats? ckey_stats;
 
     public GUI()
     {

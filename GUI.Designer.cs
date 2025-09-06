@@ -42,6 +42,7 @@ namespace SpaceLogs13
             ReportBox = new TextBox();
             StatDisplay = new TextBox();
             RoundSelector = new ComboBox();
+            ConfigSelector = new ComboBox();
             SuspendLayout();
             // 
             // LogDisplay
@@ -167,12 +168,24 @@ namespace SpaceLogs13
             RoundSelector.Text = "ROUND";
             RoundSelector.SelectionChangeCommitted += RoundSelector_SelectionChangeCommitted;
             // 
+            // ConfigSelector
+            // 
+            ConfigSelector.Enabled = false;
+            ConfigSelector.Font = new Font("Arial", 12F, FontStyle.Bold);
+            ConfigSelector.FormattingEnabled = true;
+            ConfigSelector.Location = new Point(363, 91);
+            ConfigSelector.Name = "ConfigSelector";
+            ConfigSelector.Size = new Size(102, 27);
+            ConfigSelector.TabIndex = 10;
+            ConfigSelector.Text = "CONFIG";
+            // 
             // GUI
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 461);
+            Controls.Add(ConfigSelector);
             Controls.Add(RoundSelector);
             Controls.Add(StatDisplay);
             Controls.Add(ReportBox);
@@ -206,5 +219,6 @@ namespace SpaceLogs13
         private TextBox ReportBox;
         private TextBox StatDisplay;
         private ComboBox RoundSelector;
+        private ComboBox ConfigSelector;
     }
 }

@@ -2,9 +2,7 @@
  * Methods for the primary form GUI class.
 */
 
-using SpaceLogs13.Classes;
-using System.Text.RegularExpressions;
-using static System.Windows.Forms.LinkLabel;
+using SpaceLogs13.Classes.Logs;
 
 namespace SpaceLogs13;
 
@@ -67,6 +65,8 @@ partial class GUI
         RoundSelector.Enabled = true;
         ClearRoundSelection();
         ClearStats();
+        round_stats = null;
+        ckey_stats = null;
         RoundSelector.Items.Clear();
         RoundSelector.Items.Add("All rounds");
         RoundSelector.Items.AddRange(current_file.GetRounds());
@@ -87,6 +87,8 @@ partial class GUI
         RoundSelector.Items.Clear();
         RoundSelector.Enabled = false;
         ClearStats();
+        round_stats = null;
+        ckey_stats = null;
         FilePathBox.Text = filepath_prefix + filepath_default;
         AdjustFilePathDisplay();
         ClearReport();
@@ -126,20 +128,22 @@ partial class GUI
         }
         try
         {
-            selected_round = new RoundLog(current_file, round_id);
+            selected_round = new(current_file, round_id);
         }
         catch (Exception e)
         {
             MessageBox.Show(e.ToString());
             return false;
         }
-        DisplayStats(selected_round.GetStats(), $"Round {round_id}:{System.Environment.NewLine}{System.Environment.NewLine}");
+        round_stats = new(selected_round);
+        DisplayStats(round_stats.GetFormatted());
         return true;
     }
 
     private void DeselectRound()
     {
         selected_round = null;
+        round_stats = null;
         ClearStats();
     }
 
@@ -155,30 +159,9 @@ partial class GUI
     }
 
 
-    private void DisplayStats(string[] raw_stats, string header)
+    private void DisplayStats(string stats)
     {
-        List<string> stats = [];
-        for (int i = 0; i < raw_stats.Length; i++)
-        {
-            switch(i)
-            {
-                case 0:
-                    stats.Add($"There were {raw_stats[i]} players at world boot;");
-                    break;
-                /*
-                case 1: // Uncomment this when OnyxBay merges death notices ~05.09.2025
-                    stats.Add($"{raw_stats[i]} players have died;");
-                    break;
-                */
-                case 1:
-                    stats.Add($"There were {raw_stats[i]} explosions;");
-                    break;
-                default:
-                    stats.Add(raw_stats[i]);
-                    break;
-            }
-        }
-        StatDisplay.Text = header + string.Join(System.Environment.NewLine, stats);
+        StatDisplay.Text = stats;
     }
 
     private void ClearStats()
