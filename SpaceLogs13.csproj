@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<VersionPrefix>1.0.0-alpha1</VersionPrefix>
+	<ApplicationIcon>animus.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="animus.ico" />
+  </ItemGroup>
 
 </Project>
